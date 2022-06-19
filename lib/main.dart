@@ -10,7 +10,7 @@ enum TimerState { running, paused, finish, start }
 
 class MyApp extends StatelessWidget {
   final CountDownController _controller = CountDownController();
-  int totalTime = 5;
+  int totalTime = 60;
   TimerState timerState = TimerState.start;
   @override
   Widget build(BuildContext context) {
