@@ -30,6 +30,7 @@ dependencies:
   wear: ^1.1.0
   vibration: ^1.7.4-nullsafety.0
   flutter_beep: ^1.0.0
+  wakelock: ^0.6.2
   circular_countdown_timer: ^0.2.1
   flutter:
     sdk: flutter
