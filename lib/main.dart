@@ -1,10 +1,10 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_beep/flutter_beep.dart';
 import 'package:one_min_timer/infoPage.dart';
 import 'package:vibration/vibration.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:wear/wear.dart';
-import 'package:flutter_beep/flutter_beep.dart';
 
 void main() {
   runApp(const MyApp());
@@ -50,7 +50,7 @@ class _MyAppState extends State<MyApp> {
                         child: Icon(
                           Icons.info,
                           size: 26,
-                          color: Colors.red,
+                          color: Colors.grey,
                         ),
                       ),
                     ),

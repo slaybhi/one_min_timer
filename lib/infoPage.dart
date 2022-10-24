@@ -25,7 +25,7 @@ class InfoPage extends StatelessWidget {
                         child: Icon(
                           Icons.arrow_back_ios_outlined,
                           size: 20,
-                          color: Colors.red,
+                          color: Colors.grey,
                         ),
                       ),
                     ),
@@ -47,7 +47,8 @@ class InfoPage extends StatelessWidget {
                             ),
                             Text(
                               "Tap for start/pause",
-                              style: TextStyle(color: Colors.white),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 10),
                             ),
                           ],
                         ),
@@ -66,7 +67,8 @@ class InfoPage extends StatelessWidget {
                             ),
                             Text(
                               "double tap for restart",
-                              style: TextStyle(color: Colors.white),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 10),
                             ),
                           ],
                         )
