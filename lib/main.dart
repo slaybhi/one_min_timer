@@ -1,6 +1,7 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_beep/flutter_beep.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:vibration/vibration.dart';
 import 'package:wakelock/wakelock.dart';
@@ -23,11 +24,15 @@ class _MyAppState extends State<MyApp> {
   final CountDownController _controller = CountDownController();
 
   int totalTime = 60;
-  Duration currentDuration = const Duration(minutes: 1);
   final Duration minDuration = const Duration(seconds: 1);
   final Duration maxDuration = const Duration(minutes: 15);
 
   TimerState timerState = TimerState.start;
+  @override
+  void initState() {
+    super.initState();
+    _fetchData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +146,7 @@ class _MyAppState extends State<MyApp> {
 
   timerStart() {
     Wakelock.enable();
-    _controller.start();
+    _controller.restart(duration: totalTime);
   }
 
   showInfo(BuildContext context) {
@@ -268,12 +273,12 @@ class _MyAppState extends State<MyApp> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         height: MediaQuery.of(context).size.height * 0.60,
                         child: SleekCircularSlider(
                           min: minDuration.inSeconds.toDouble(),
                           max: maxDuration.inSeconds.toDouble(),
-                          initialValue: currentDuration.inMinutes.toDouble(),
+                          initialValue: totalTime.toDouble(),
                           appearance: CircularSliderAppearance(
                             infoProperties: InfoProperties(
                                 mainLabelStyle: TextStyle(color: Colors.white),
@@ -315,8 +320,15 @@ class _MyAppState extends State<MyApp> {
     Wakelock.disable();
   }
 
-  setDuration(int value) {
+  setDuration(int value) async {
     totalTime = value;
     _controller.restart(duration: value);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('duration', totalTime);
+  }
+
+  _fetchData() async {
+    final prefs = await SharedPreferences.getInstance();
+    totalTime = prefs.getInt('duration') ?? 60;
   }
 }

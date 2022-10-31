@@ -33,6 +33,7 @@ dependencies:
   wakelock: ^0.6.2
   circular_countdown_timer: ^0.2.1
   sleek_circular_slider: ^2.0.1
+  shared_preferences: ^2.0.15
   flutter:
     sdk: flutter
 
