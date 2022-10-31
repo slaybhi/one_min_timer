@@ -22,8 +22,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final CountDownController _controller = CountDownController();
 
-  final int totalTime = 60;
-  Duration currentDuration = Duration(minutes: 1);
+  int totalTime = 60;
+  Duration currentDuration = const Duration(minutes: 1);
+  final Duration minDuration = const Duration(seconds: 1);
+  final Duration maxDuration = const Duration(minutes: 15);
 
   TimerState timerState = TimerState.start;
 
@@ -225,6 +227,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   showSettings(BuildContext context) {
+    int value = totalTime;
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -243,7 +246,8 @@ class _MyAppState extends State<MyApp> {
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: InkWell(
-                            onTap: () {
+                            onTap: () async {
+                              await setDuration(value);
                               Navigator.pop(context);
                             },
                             child: Icon(
@@ -267,8 +271,8 @@ class _MyAppState extends State<MyApp> {
                       Container(
                         height: MediaQuery.of(context).size.height * 0.60,
                         child: SleekCircularSlider(
-                          min: Duration(seconds: 1).inSeconds.toDouble(),
-                          max: Duration(minutes: 30).inSeconds.toDouble(),
+                          min: minDuration.inSeconds.toDouble(),
+                          max: maxDuration.inSeconds.toDouble(),
                           initialValue: currentDuration.inMinutes.toDouble(),
                           appearance: CircularSliderAppearance(
                             infoProperties: InfoProperties(
@@ -293,7 +297,7 @@ class _MyAppState extends State<MyApp> {
                                 progressBarColor: Colors.white),
                           ),
                           onChange: (val) {
-                            // print(val);
+                            value = val.toInt();
                           },
                         ),
                       )
@@ -309,5 +313,10 @@ class _MyAppState extends State<MyApp> {
   stopTimer() {
     _controller.pause();
     Wakelock.disable();
+  }
+
+  setDuration(int value) {
+    totalTime = value;
+    _controller.restart(duration: value);
   }
 }
