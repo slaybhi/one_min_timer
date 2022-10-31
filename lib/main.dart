@@ -50,8 +50,8 @@ class _MyAppState extends State<MyApp> {
                       onTap: () {
                         showSettings(context);
                       },
-                      child: Padding(
-                        padding: const EdgeInsets.all(6.0),
+                      child: const Padding(
+                        padding: EdgeInsets.all(6.0),
                         child: Icon(
                           Icons.settings,
                           size: 26,
@@ -125,8 +125,8 @@ class _MyAppState extends State<MyApp> {
                       onTap: () {
                         showInfo(context);
                       },
-                      child: Padding(
-                        padding: const EdgeInsets.all(6.0),
+                      child: const Padding(
+                        padding: EdgeInsets.all(6.0),
                         child: Icon(
                           Icons.info,
                           size: 26,
@@ -169,7 +169,7 @@ class _MyAppState extends State<MyApp> {
                             onTap: () {
                               Navigator.pop(context);
                             },
-                            child: Icon(
+                            child: const Icon(
                               Icons.arrow_back_ios_outlined,
                               size: 20,
                               color: Colors.grey,
@@ -189,17 +189,17 @@ class _MyAppState extends State<MyApp> {
                                   "assets/next.png",
                                   height: 20,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
-                                Text(
+                                const Text(
                                   "Tap for start/pause",
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 10),
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Row(
@@ -209,10 +209,10 @@ class _MyAppState extends State<MyApp> {
                                   "assets/next.png",
                                   height: 20,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
-                                Text(
+                                const Text(
                                   "double tap for restart",
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 10),
@@ -251,11 +251,11 @@ class _MyAppState extends State<MyApp> {
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: InkWell(
-                            onTap: () async {
-                              await setDuration(value);
+                            onTap: () {
+                              setDuration(value);
                               Navigator.pop(context);
                             },
-                            child: Icon(
+                            child: const Icon(
                               Icons.arrow_back_ios_outlined,
                               size: 20,
                               color: Colors.grey,
@@ -263,8 +263,8 @@ class _MyAppState extends State<MyApp> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 10),
                         child: Text(
                           "Set Duration",
                           style: TextStyle(
@@ -281,7 +281,8 @@ class _MyAppState extends State<MyApp> {
                           initialValue: totalTime.toDouble(),
                           appearance: CircularSliderAppearance(
                             infoProperties: InfoProperties(
-                                mainLabelStyle: TextStyle(color: Colors.white),
+                                mainLabelStyle:
+                                    const TextStyle(color: Colors.white),
                                 modifier: (val) {
                                   Duration duration =
                                       Duration(seconds: val.toInt());
