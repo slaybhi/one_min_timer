@@ -1,7 +1,6 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_beep/flutter_beep.dart';
-import 'package:one_min_timer/infoPage.dart';
 import 'package:vibration/vibration.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:wear/wear.dart';
@@ -40,10 +39,7 @@ class _MyAppState extends State<MyApp> {
                     alignment: Alignment.topCenter,
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => InfoPage()));
+                        showInfo(context);
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -126,6 +122,88 @@ class _MyAppState extends State<MyApp> {
   timerStart() {
     Wakelock.enable();
     _controller.start();
+  }
+
+  showInfo(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Scaffold(
+            backgroundColor: Colors.black,
+            body: Center(
+              child: WatchShape(
+                builder:
+                    (BuildContext context2, WearShape shape, Widget? child) {
+                  return Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Align(
+                          alignment: Alignment.topCenter,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Icon(
+                              Icons.arrow_back_ios_outlined,
+                              size: 20,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(30, 20, 10, 20),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                  "assets/next.png",
+                                  height: 20,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "Tap for start/pause",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 10),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                  "assets/next.png",
+                                  height: 20,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "double tap for restart",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 10),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          );
+        });
   }
 
   stopTimer() {
