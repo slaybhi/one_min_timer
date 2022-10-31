@@ -1,6 +1,7 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_beep/flutter_beep.dart';
+import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:vibration/vibration.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:wear/wear.dart';
@@ -22,6 +23,7 @@ class _MyAppState extends State<MyApp> {
   final CountDownController _controller = CountDownController();
 
   final int totalTime = 60;
+  Duration currentDuration = Duration(minutes: 1);
 
   TimerState timerState = TimerState.start;
 
@@ -39,12 +41,12 @@ class _MyAppState extends State<MyApp> {
                     alignment: Alignment.topCenter,
                     child: InkWell(
                       onTap: () {
-                        showInfo(context);
+                        showSettings(context);
                       },
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(6.0),
                         child: Icon(
-                          Icons.info,
+                          Icons.settings,
                           size: 26,
                           color: Colors.grey,
                         ),
@@ -110,6 +112,22 @@ class _MyAppState extends State<MyApp> {
                       ),
                     ),
                   )),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: InkWell(
+                      onTap: () {
+                        showInfo(context);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: Icon(
+                          Icons.info,
+                          size: 26,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               );
             },
@@ -197,6 +215,88 @@ class _MyAppState extends State<MyApp> {
                           ],
                         ),
                       ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          );
+        });
+  }
+
+  showSettings(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Scaffold(
+            backgroundColor: Colors.black,
+            body: Center(
+              child: WatchShape(
+                builder:
+                    (BuildContext context2, WearShape shape, Widget? child) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Align(
+                          alignment: Alignment.topCenter,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Icon(
+                              Icons.arrow_back_ios_outlined,
+                              size: 20,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(
+                          "Set Duration",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.60,
+                        child: SleekCircularSlider(
+                          min: Duration(seconds: 1).inSeconds.toDouble(),
+                          max: Duration(minutes: 30).inSeconds.toDouble(),
+                          initialValue: currentDuration.inMinutes.toDouble(),
+                          appearance: CircularSliderAppearance(
+                            infoProperties: InfoProperties(
+                                mainLabelStyle: TextStyle(color: Colors.white),
+                                modifier: (val) {
+                                  Duration duration =
+                                      Duration(seconds: val.toInt());
+                                  String str = "";
+                                  if (duration.inSeconds < 60) {
+                                    str =
+                                        "${duration.inSeconds.toString()} sec";
+                                  } else {
+                                    str =
+                                        "${duration.inMinutes.floor()}min : ${duration.inSeconds % 60}sec";
+                                  }
+                                  return str;
+                                }),
+                            customWidths:
+                                CustomSliderWidths(progressBarWidth: 10),
+                            customColors: CustomSliderColors(
+                                trackColor: Colors.grey,
+                                progressBarColor: Colors.white),
+                          ),
+                          onChange: (val) {
+                            // print(val);
+                          },
+                        ),
+                      )
                     ],
                   );
                 },
