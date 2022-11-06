@@ -301,6 +301,9 @@ class _MyAppState extends State<MyApp> {
                             customColors: CustomSliderColors(
                                 trackColor: Colors.grey,
                                 progressBarColor: Colors.white),
+                            counterClockwise: true,
+                            startAngle: 0,
+                            angleRange: 359,
                           ),
                           onChange: (val) {
                             value = val.toInt();

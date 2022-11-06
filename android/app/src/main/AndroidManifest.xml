@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.one_min_timer">
+    package="org.samadhanam.one_min_timer">
+    <uses-feature
+        android:name="android.hardware.type.watch"/>
    <application
         android:label="one_min_timer"
         android:name="${applicationName}"
@@ -30,5 +32,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+       <meta-data
+           android:name="com.google.android.wearable.standalone"
+           android:value="true" />
     </application>
 </manifest>
