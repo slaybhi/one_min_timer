@@ -3,7 +3,7 @@
     <uses-feature
         android:name="android.hardware.type.watch"/>
    <application
-        android:label="one_min_timer"
+        android:label="loop timer"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
